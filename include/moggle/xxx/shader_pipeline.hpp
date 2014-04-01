@@ -141,7 +141,7 @@ public:
 struct operation {
 	std::string name;
 	std::map<std::string, operation_parameter> parameters;
-	operation(std::string const & name, std::map<std::string, operation_parameter> const & parameters = {})
+	operation(std::string const & name, std::map<std::string, operation_parameter> const & parameters)
 		: name(name), parameters(parameters) {}
 	operation(char const * name) : name(name) {}
 };
