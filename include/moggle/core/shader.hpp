@@ -232,7 +232,9 @@ public:
 
 X(GLfloat, gl::uniform_1f (id, v));
 X(GLint  , gl::uniform_1i (id, v));
+#if not(TARGET_OS_IPHONE)
 X(GLuint , gl::uniform_1ui(id, v));
+#endif
 
 X(vector2<GLfloat>, gl::uniform_2fv (id, 1, v.data()));
 X(vector3<GLfloat>, gl::uniform_3fv (id, 1, v.data()));
@@ -240,21 +242,25 @@ X(vector4<GLfloat>, gl::uniform_4fv (id, 1, v.data()));
 X(vector2<GLint  >, gl::uniform_2iv (id, 1, v.data()));
 X(vector3<GLint  >, gl::uniform_3iv (id, 1, v.data()));
 X(vector4<GLint  >, gl::uniform_4iv (id, 1, v.data()));
+#if not(TARGET_OS_IPHONE)
 X(vector2<GLuint >, gl::uniform_2uiv(id, 1, v.data()));
 X(vector3<GLuint >, gl::uniform_3uiv(id, 1, v.data()));
 X(vector4<GLuint >, gl::uniform_4uiv(id, 1, v.data()));
+#endif
 
-X(matrix2<GLfloat>, gl::uniform_matrix_2fv(id, 1, GL_TRUE, v.data()));
-X(matrix3<GLfloat>, gl::uniform_matrix_3fv(id, 1, GL_TRUE, v.data()));
-X(matrix4<GLfloat>, gl::uniform_matrix_4fv(id, 1, GL_TRUE, v.data()));
+X(matrix2<GLfloat>, gl::uniform_matrix_2fv(id, 1, GL_FALSE, transposed(v).data()));
+X(matrix3<GLfloat>, gl::uniform_matrix_3fv(id, 1, GL_FALSE, transposed(v).data()));
+X(matrix4<GLfloat>, gl::uniform_matrix_4fv(id, 1, GL_FALSE, transposed(v).data()));
 
+#if not(TARGET_OS_IPHONE)
 X(matrix3x2<GLfloat>, gl::uniform_matrix_2x3fv(id, 1, GL_TRUE, v.data()));
 X(matrix2x3<GLfloat>, gl::uniform_matrix_3x2fv(id, 1, GL_TRUE, v.data()));
 X(matrix4x2<GLfloat>, gl::uniform_matrix_2x4fv(id, 1, GL_TRUE, v.data()));
 X(matrix2x4<GLfloat>, gl::uniform_matrix_4x2fv(id, 1, GL_TRUE, v.data()));
 X(matrix4x3<GLfloat>, gl::uniform_matrix_3x4fv(id, 1, GL_TRUE, v.data()));
 X(matrix3x4<GLfloat>, gl::uniform_matrix_4x3fv(id, 1, GL_TRUE, v.data()));
-
+#endif
+    
 #undef X
 
 }

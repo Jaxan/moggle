@@ -11,12 +11,13 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/m-ou-se/moggle"
   s.license          = 'GPL'
   s.author           = { "Maurice Bos" => "m-ou.se@m-ou.se" }
-  s.source           = { :git => "https://github.com/m-ou-se/moggle.git" }
+  s.source           = { :git => "https://github.com/jaxan/moggle.git", :tag => "0.1.0" }
 
   s.source_files =  'src/**/*.{hpp,cpp}', 'include/**/*.hpp'
   s.public_header_files = 'include/**/*.hpp'
   s.header_mappings_dir = 'include'
 
-  s.frameworks = 'OpenGL'
+  s.osx.frameworks = 'OpenGL'
+  s.ios.frameworks = 'OpenGLES'
   s.compiler_flags = '-std=c++11 -stdlib=libc++'
 end

@@ -31,7 +31,9 @@ struct gl_type_traits;
 	}
 
 X(GLfloat , GL_FLOAT         );
+#if not(TARGET_OS_IPHONE)
 X(GLdouble, GL_DOUBLE        );
+#endif
 X(GLuint  , GL_UNSIGNED_INT  );
 X(GLint   , GL_INT           );
 X(GLbyte  , GL_BYTE          );

@@ -22,7 +22,19 @@
 #include <utility>
 
 #ifdef __APPLE__
-    #include <OpenGL/gl3.h>
+    #include <TargetConditionals.h>
+    #if TARGET_OS_IPHONE
+        #include <OpenGLES/ES2/gl.h>
+        #include <OpenGLES/ES2/glext.h>
+        #define glBindVertexArray glBindVertexArrayOES
+        #define glGenVertexArrays glGenVertexArraysOES
+        #define glDeleteVertexArrays glDeleteVertexArraysOES
+        #define glMapBuffer glMapBufferOES
+        #define glUnmapBuffer glUnmapBufferOES
+        #define GL_WRITE_ONLY GL_WRITE_ONLY_OES
+    #else
+        #include <OpenGL/gl3.h>
+    #endif
 #else
 	#include <GL/glew.h>
 #endif
@@ -133,25 +145,29 @@ namespace gl {
 	X(texture_parameter_i           , glTexParameteri          )
 	X(uniform_1f                    , glUniform1f              )
 	X(uniform_1i                    , glUniform1i              )
-	X(uniform_1ui                   , glUniform1ui             )
 	X(uniform_2fv                   , glUniform2fv             )
 	X(uniform_2iv                   , glUniform2iv             )
-	X(uniform_2uiv                  , glUniform2uiv            )
 	X(uniform_3fv                   , glUniform3fv             )
 	X(uniform_3iv                   , glUniform3iv             )
-	X(uniform_3uiv                  , glUniform3uiv            )
 	X(uniform_4fv                   , glUniform4fv             )
 	X(uniform_4iv                   , glUniform4iv             )
+#if not(TARGET_OS_IPHONE)
+	X(uniform_1ui                   , glUniform1ui             )
+	X(uniform_2uiv                  , glUniform2uiv            )
+	X(uniform_3uiv                  , glUniform3uiv            )
 	X(uniform_4uiv                  , glUniform4uiv            )
+#endif
 	X(uniform_matrix_2fv            , glUniformMatrix2fv       )
+	X(uniform_matrix_3fv            , glUniformMatrix3fv       )
+	X(uniform_matrix_4fv            , glUniformMatrix4fv       )
+#if not(TARGET_OS_IPHONE)
 	X(uniform_matrix_2x3fv          , glUniformMatrix2x3fv     )
 	X(uniform_matrix_2x4fv          , glUniformMatrix2x4fv     )
-	X(uniform_matrix_3fv            , glUniformMatrix3fv       )
 	X(uniform_matrix_3x2fv          , glUniformMatrix3x2fv     )
 	X(uniform_matrix_3x4fv          , glUniformMatrix3x4fv     )
-	X(uniform_matrix_4fv            , glUniformMatrix4fv       )
 	X(uniform_matrix_4x2fv          , glUniformMatrix4x2fv     )
 	X(uniform_matrix_4x3fv          , glUniformMatrix4x3fv     )
+#endif
 	X(unmap_buffer                  , glUnmapBuffer            )
 	X(use_program                   , glUseProgram             )
 	X(vertex_attribute_pointer      , glVertexAttribPointer    )

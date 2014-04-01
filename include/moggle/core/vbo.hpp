@@ -152,20 +152,24 @@ public:
 		data(list.begin(), list.size(), usage);
 	}
 
+#if not(TARGET_OS_IPHONE)
 	vbo_mapping<T const> map_read_only() const {
 		bind(GL_ARRAY_BUFFER);
 		return { gl::map_buffer(GL_ARRAY_BUFFER, GL_READ_ONLY), size() };
 	}
+#endif
 
 	vbo_mapping<T> map_write_only() const {
 		bind(GL_ARRAY_BUFFER);
 		return { gl::map_buffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), size() };
 	}
 
+#if not(TARGET_OS_IPHONE)
 	vbo_mapping<T> map_read_write() const {
 		bind(GL_ARRAY_BUFFER);
 		return { gl::map_buffer(GL_ARRAY_BUFFER, GL_READ_WRITE), size() };
 	}
+#endif
 
 };
 
